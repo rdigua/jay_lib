@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["del_mid_str","get_mid_str"]};

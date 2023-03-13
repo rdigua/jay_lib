@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src\fns\fn_str.rs`."><title>fn_str.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" disabled href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-be46fdc453a55015.css"><script src="../../../static.files/storage-3891ce972e3a2bf8.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-98a684e84ae5b08b.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../jay_lib/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<a href="#2" id="2">2</a>
+<a href="#3" id="3">3</a>
+<a href="#4" id="4">4</a>
+<a href="#5" id="5">5</a>
+<a href="#6" id="6">6</a>
+<a href="#7" id="7">7</a>
+<a href="#8" id="8">8</a>
+<a href="#9" id="9">9</a>
+<a href="#10" id="10">10</a>
+<a href="#11" id="11">11</a>
+<a href="#12" id="12">12</a>
+<a href="#13" id="13">13</a>
+<a href="#14" id="14">14</a>
+<a href="#15" id="15">15</a>
+<a href="#16" id="16">16</a>
+<a href="#17" id="17">17</a>
+<a href="#18" id="18">18</a>
+<a href="#19" id="19">19</a>
+<a href="#20" id="20">20</a>
+<a href="#21" id="21">21</a>
+<a href="#22" id="22">22</a>
+<a href="#23" id="23">23</a>
+<a href="#24" id="24">24</a>
+<a href="#25" id="25">25</a>
+<a href="#26" id="26">26</a>
+<a href="#27" id="27">27</a>
+<a href="#28" id="28">28</a>
+<a href="#29" id="29">29</a>
+<a href="#30" id="30">30</a>
+<a href="#31" id="31">31</a>
+<a href="#32" id="32">32</a>
+<a href="#33" id="33">33</a>
+<a href="#34" id="34">34</a>
+<a href="#35" id="35">35</a>
+<a href="#36" id="36">36</a>
+<a href="#37" id="37">37</a>
+<a href="#38" id="38">38</a>
+<a href="#39" id="39">39</a>
+<a href="#40" id="40">40</a>
+<a href="#41" id="41">41</a>
+<a href="#42" id="42">42</a>
+<a href="#43" id="43">43</a>
+<a href="#44" id="44">44</a>
+<a href="#45" id="45">45</a>
+<a href="#46" id="46">46</a>
+<a href="#47" id="47">47</a>
+<a href="#48" id="48">48</a>
+<a href="#49" id="49">49</a>
+<a href="#50" id="50">50</a>
+<a href="#51" id="51">51</a>
+<a href="#52" id="52">52</a>
+<a href="#53" id="53">53</a>
+<a href="#54" id="54">54</a>
+<a href="#55" id="55">55</a>
+<a href="#56" id="56">56</a>
+<a href="#57" id="57">57</a>
+<a href="#58" id="58">58</a>
+<a href="#59" id="59">59</a>
+<a href="#60" id="60">60</a>
+<a href="#61" id="61">61</a>
+<a href="#62" id="62">62</a>
+<a href="#63" id="63">63</a>
+<a href="#64" id="64">64</a>
+<a href="#65" id="65">65</a>
+<a href="#66" id="66">66</a>
+<a href="#67" id="67">67</a>
+<a href="#68" id="68">68</a>
+<a href="#69" id="69">69</a>
+<a href="#70" id="70">70</a>
+<a href="#71" id="71">71</a>
+<a href="#72" id="72">72</a>
+<a href="#73" id="73">73</a>
+<a href="#74" id="74">74</a>
+<a href="#75" id="75">75</a>
+<a href="#76" id="76">76</a>
+<a href="#77" id="77">77</a>
+<a href="#78" id="78">78</a>
+<a href="#79" id="79">79</a>
+<a href="#80" id="80">80</a>
+<a href="#81" id="81">81</a>
+<a href="#82" id="82">82</a>
+<a href="#83" id="83">83</a>
+<a href="#84" id="84">84</a>
+<a href="#85" id="85">85</a>
+<a href="#86" id="86">86</a>
+<a href="#87" id="87">87</a>
+<a href="#88" id="88">88</a>
+<a href="#89" id="89">89</a>
+</pre><pre class="rust"><code><span class="doccomment">///Command string function.
+
+</span><span class="kw">use </span>std::error::Error;
+<span class="kw">type </span><span class="prelude-ty">Result</span>&lt;T&gt;=::std::result::Result&lt;T, Box&lt;<span class="kw">dyn </span>Error&gt;&gt;;
+
+
+
+<span class="doccomment">///Command get middle subject str.
+/// Example:
+/// ```rust
+/// use jay_lib::fns::fn_str;
+///     let s=r#&quot;&lt;DT&gt;&lt;A HREF=&quot;http://web.stanford.edu/class/cs97si/&quot; ADD_DATE=&quot;1606284605&quot; ICON=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAADIUlEQVQ4jV1SPWxTZxQ9937PPP/FP1JenxNDUAsqIk5FHFoqtYmCKiwVwsJQKhZABYaMLVGHdmg21ECrMiChdEHqUomxRLAUWxAgmVCKZBW1yBirpHET2+EljoP9fbcDcUpzlruce3XOuYewBb+cO/ed8bzP19bWjGjNAEBKmUAgwCoS+eHo5OQXr/PVxqTxgwetL48c+bZRKp1/ks2apcePOeS69NLzqHT3LtWKRROORj84lcl0vB0K3c49fSoAwOMAA5BUZ2fGVCpjf2Szmv1+EoDSZ8/KvtOnxRhDKhCgJ7mcRqVyPuW6GQAyDrDVCxAAQOuAt7Ji2LIgzSbZ4bA4fX0krZYo2zattTVtjDHe4mJLxeN+APgGgJUHBACMiFHMJCIAs+weGeFAPC52JEL7Tpyg53fusGKGk0jgH8/bBgDXAbK2higAiJki3d3ij8UgWktyaCgvfv+0su0CKxWsTE39BgCfAOZ/B4RIoLUEHQe7Dh8my7ZhWi2EXDcq9Xr/S89b+vjata/bfAKENzNQStk+HxutTXN1FbOXL9NquUyNWo3mZ2a2z8/MvN8qlb6aGh39+aLrhrCxx8cBAwCN9fUZ5ThzPamUr1YscueePRJ0HPiCQdSrVVkqFvXv9+419eLipz2Dgx+1v8Bt26du3PjrWa02GBsY+LXv2LGVaE+PUT6f+GMxvHnoEDqSSSZmrnueIWYLAHoB4rb9i677RuzFi/eWy+UJ8vl+iu3cycRMYoxUCwVqNRqv8iUiMUYAIA9Iu0joSqc/TOzde7u1vHwzceDAZ9sHB1EtFEDMlD5zBh1dXdDN5obo/7BZJDscpoVHj3RpepoiyaQ9eeWKvHPypCTSaSrPzcnukRGaf/jQaK1h0SvlvQBtFkmI6hHXVduCQf3nrVumVq3yu+GwPH/wQG5euEDJHTuMsiyEo1FuMtfbFlRuI0SkUoWBzk67Ix4fqhQKJtnfT5lLlyjgODSfzcp6pSJvDQ8rO5mcaHjej9fzeeQAoa1NnBodnVhfWBhLDg/r7v37CQCe3b8vf8/OKttxvj969erY6/x/AcVGWaUgUfh8AAAAAElFTkSuQmCC&quot;&gt;CS 97SI: Introduction to Programming Contests&lt;/A&gt;&quot;#;
+///     if let Ok(get)=fn_str::get_mid_str(&quot;HREF=\&quot;&quot;,&quot;\&quot;&quot;,s){
+///         assert_eq!(r#&quot;http://web.stanford.edu/class/cs97si/&quot;#.to_string(),get);
+///     }
+///     if let Ok(get)=fn_str::get_mid_str(&quot;\&quot;&gt;&quot;,&quot;&lt;/A&gt;&quot;,s){
+///         assert_eq!(r#&quot;CS 97SI: Introduction to Programming Contests&quot;#.to_string(),get);
+///     }
+/// ```
+</span><span class="kw">pub fn </span>get_mid_str&lt;S:AsRef&lt;str&gt;&gt;(start:S,end:S,s:S)-&gt;<span class="prelude-ty">Result</span>&lt;String&gt;
+{
+    <span class="kw">let </span><span class="kw-2">mut </span>lead:usize;
+    <span class="kw">let </span>trail:usize;
+    <span class="kw">match </span>s.as_ref().find(start.as_ref()){
+        <span class="prelude-val">Some</span>(first) =&gt; {
+            lead=first;
+            <span class="kw">let </span>now=first+start.as_ref().len();
+            <span class="kw">let </span>ss=<span class="kw-2">&amp;</span>s.as_ref()[now..];
+            <span class="kw">match </span>ss.find(end.as_ref()) {
+                <span class="prelude-val">Some</span>(last)=&gt;{
+                    trail =now+last
+                },
+                <span class="prelude-val">None</span>=&gt;{<span class="kw">return </span><span class="prelude-val">Err</span>(<span class="string">&quot;No find end substring.&quot;</span>.into());},
+            }
+        },
+        <span class="prelude-val">None </span>=&gt; {<span class="kw">return </span><span class="prelude-val">Err</span>(<span class="string">&quot;No find start substring.&quot;</span>.into())},
+    }
+    <span class="kw">if </span>lead &gt; trail || trail &gt;s.as_ref().len(){
+        <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="string">&quot;Substring?&quot;</span>.into())
+    }
+    lead += start.as_ref().len();
+    <span class="kw">let </span>slice=<span class="kw-2">&amp;</span>s.as_ref()[lead..trail];
+    <span class="prelude-val">Ok</span>(slice.to_string())
+}
+
+<span class="doccomment">///Command get middle subject str.
+///Example:
+/// ```rust
+/// use jay_lib::fns::fn_str;
+///    let s=r#&quot;&lt;DT&gt;&lt;A HREF=&quot;https://blog.csdn.net/sdu_hao/article/details/95958293?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.control&quot; ADD_DATE=&quot;1612008593&quot; ICON=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAB/klEQVQ4jU2SPWtUYRCFz5n3bvbubhISoyJiJxEsEkglghZJZUTUJkhAUoja2WihgohFQPAXaGVhk8rGRkQrURDEFOL3B2idkDXJ7t3Nve8ci7ubZOozZ2aeMyzmptAvSSBpBgkxgkQIkOQOkgCAZLeaJEi1NkBDWgeEzXUkFVZTuIPcaSjVkqPb5bEZTp/H4aPMc//0Hs+X9Psb0hrlILm9kuRw5+XbNjsPuX//yNEx239Inbbfu6IvH5jWISU9fzNlmV26FWbn/d0rf7SI5oosaPosF25gZC9iLH1ZzE0JRLeN8YnwYEl/fsSb8+xkTOvyiK0O9h3ERhMSAZAGgKTy3E6eppmePcHmOhtDgmjG2iDXVtjnAcAAyCNrDYxPSNLXZVZTxYIlZTmSBKSkciUrb0BSwfAe5DnW11DmUE7u6bhN3/opRHTbSALSGgSaARDAEOCuYmu72QAwJGq39OszLXDqhP6tKjrc6VEbTdUaHDugIufODRAt6OVTxcIWrtuZi6imCokGUkwet7sPbfExBqpy72Etc0C7xVMX7OodVCroZGquojHIoRECvvzG71+DnLRdSQPIWhiftJlzODLJ4VF1Mvz9qeXXevsCRcEQ+hN2Ps/UaaPIUWswJJKjm6EoWB8syZLsPV8PgiLTGlhHjIoFSaR10OQRpSPwH79sFlWOAVADAAAAAElFTkSuQmCC&quot;&gt;自然语言处理 | (30) 文本相似度计算与文本匹配问题_sdu_hao的博客-CSDN博客_文本相似度匹配&lt;/A&gt;&quot;#;
+///     if let Ok(after_del)=fn_str::del_mid_str(&quot; ICON=\&quot;&quot;,&quot;\&quot;&gt;&quot;,s){
+///         assert_eq!(r#&quot;&lt;DT&gt;&lt;A HREF=&quot;https://blog.csdn.net/sdu_hao/article/details/95958293?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.control&quot; ADD_DATE=&quot;1612008593&quot;自然语言处理 | (30) 文本相似度计算与文本匹配问题_sdu_hao的博客-CSDN博客_文本相似度匹配&lt;/A&gt;&quot;#.to_string(),after_del);
+///     }
+///     if let Ok(after_del)=fn_str::del_mid_str(&quot; ADD_DATE=\&quot;&quot;,&quot;\&quot;&gt;&quot;,s){
+///         assert_eq!(r#&quot;&lt;DT&gt;&lt;A HREF=&quot;https://blog.csdn.net/sdu_hao/article/details/95958293?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.control&quot;自然语言处理 | (30) 文本相似度计算与文本匹配问题_sdu_hao的博客-CSDN博客_文本相似度匹配&lt;/A&gt;&quot;#.to_string(),after_del);
+///     }
+///         let s=r#&quot;&lt;DT&gt;&lt;A HREF=&quot;https://www.jianshu.com/p/c7421770d0d1&quot; ADD_DATE=&quot;1612009180&quot; ICON=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACz0lEQVQ4jV2ST2hcZRTFf+f7vvfezOuk0cTWaYtVUEGyEhV0oaBQ0uJCpV1lUwuCBSMoLQiiIoJ/KNiCi1hdxC4UBP/gUtCNiOBG3XRRin9qaJPUUs1Mp0ln3nvfd11MI8WzvNx77uGco5VDe/bnLj9Rp3RbAoiNzHlJYhOWEmDIeQPMSWTS+SpVR4JZWADrRkjCpHZH1COsqsbX3qMsB+ewaxsSRjQsK/LbjbDgJLpDw9Kg7/KZ+7Tj5JcW7rgbTWwldHdhdc3Ui28wffQtlOfmpm+V39Z1w2Qm6Gr50L5ksZGfmLTpl9/FYiM/vZ1meYnqz1+xqwO27N1Pfe4s2Z330Px2xuqV81z5/CNZXZsjRchypl46RnNpVZdeOUz1x1mGp39i8NUntB+ZZe3k2/x9/DVsY52r33+j3uJxLCXkHbpwcNbULnFlh9a9D9J+6FHWv/uaiX0HMAlCIP1zGdcuIcuRHP1PP2D4y4+4dkmQc9jGOnE0pL5wjrL1OMpy+p8t4soOFhsUAmk0RHJMvfA6bnIKixGTCCaRRtfo7HmSyYPPs/rcASbnDtOZfYo46CM53JYO1e9n6J16b5yOJSSQGUESMgMYxxUjYftOLEXW3n8HUsPN86+S3TWDihZyjv8qIhEwAwkzGxfGedJwg/yWGW565ghgZDt30/y1AhJcf7aJMB6CpOsLCdcqaZaX6H14DARTR99EeQEpYjdymBEwM4QAI0YhEQd9wq7dbJ17FuUFKtr0P14gXemPlbtgmAnJwpjIkA+4PEd5QW/xBK7dRnkLgDTo4bftoPPEHC5kpMEaOD9WIJCct2btstZ/+BaqkVHXSk0FqTf2p6kpH7uf8oGHrf/FKQ1P/ywVLZOZtPz03tUi+O6wiYm6ElkmyfF/WNOAgKoyipa1suBGTbropDiPseQlVLRMyOxGpzcjDgE5byo75r0HY0lq5v8FS/1LVvsjW/AAAAAASUVORK5CYII=&quot;&gt;文本的匹配 - 简书&lt;/A&gt;&quot;#;
+///     if let Ok(after_del)=fn_str::del_mid_str(&quot; ADD_DATE=\&quot;&quot;,&quot;\&quot;&gt;&quot;,s) {
+///         assert_eq!(r#&quot;&lt;DT&gt;&lt;A HREF=&quot;https://www.jianshu.com/p/c7421770d0d1&quot;文本的匹配 - 简书&lt;/A&gt;&quot;#.to_string(),after_del);
+///     }
+/// ```
+</span><span class="kw">pub fn </span>del_mid_str&lt;S&gt;(start:S,end:S,s:S)-&gt;<span class="prelude-ty">Result</span>&lt;String&gt;
+    <span class="kw">where
+        </span>S:AsRef&lt;str&gt;,
+{
+    <span class="kw">let </span>lead:usize;
+    <span class="kw">let </span>trail:usize;
+    <span class="kw">match </span>s.as_ref().find(start.as_ref()){
+        <span class="prelude-val">Some</span>(first) =&gt; {
+            lead=first;
+            <span class="kw">let </span>now=first+start.as_ref().len();
+            <span class="kw">let </span>ss=<span class="kw-2">&amp;</span>s.as_ref()[now..];
+            <span class="kw">match </span>ss.find(end.as_ref()) {
+                <span class="prelude-val">Some</span>(last)=&gt;{
+                    trail =now+last+end.as_ref().len()
+                },
+                <span class="prelude-val">None</span>=&gt;{<span class="kw">return </span><span class="prelude-val">Err</span>(<span class="string">&quot;No find end substring.&quot;</span>.into())},
+            }
+        },
+        <span class="prelude-val">None </span>=&gt; {<span class="kw">return </span><span class="prelude-val">Err</span>(<span class="string">&quot;No find start substring.&quot;</span>.into())},
+    }
+    <span class="kw">if </span>lead &gt; trail || trail &gt;s.as_ref().len(){
+        <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="string">&quot;Substring?&quot;</span>.into())
+    }
+    <span class="kw">let </span>front=<span class="kw-2">&amp;</span>s.as_ref()[<span class="number">0</span>..lead];
+    <span class="kw">let </span>back=<span class="kw-2">&amp;</span>s.as_ref()[trail..];
+    <span class="kw">let </span>slice = front.to_owned()+back;
+    <span class="prelude-val">Ok</span>(slice)
+}</code></pre></div>
+</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="jay_lib" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (39f2657d1 2023-03-09)" data-search-js="search-8a59a8356673ec1f.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" ></div></body></html>
