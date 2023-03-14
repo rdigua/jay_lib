@@ -1,0 +1,43 @@
+//! To me, OnceCell is a good tool for config.
+//! It said:
+//! A cell which can be written to only once.
+//! Ok!
+//! Call config from config add institute.
+//!
+
+use crate::fns::fn_io;
+use std::error::Error;
+use once_cell::sync::OnceCell;
+use toml::Value;
+type Result<>= ::std::result::Result<(), Box<dyn Error>>;
+
+/// Often, it can be a database url or file.
+pub static DB_LOCATION: OnceCell<String> = OnceCell::new();
+/// and it can be a source from what?
+pub static DATA_FROM: OnceCell<String> = OnceCell::new();
+/// Ordering temporary place.
+pub static DATA_TIDY: OnceCell<String> = OnceCell::new();
+
+
+///Open file
+///get fields which is used.
+///written to only once
+///used it for main or lib.
+pub fn set_conf() ->Result<> {
+    let mut s = String::from("");
+    if let Ok(st) = fn_io::f_string("./config.toml") {
+        s = st;
+    }
+    let toml_info: Value = toml::from_str(&s)?;
+    if let Some(from) = toml_info["data"]["from"].as_str() {
+        DATA_FROM.get_or_init(|| from.to_string());
+    }
+    if let Some(tidy) = toml_info["data"]["tidy"].as_str() {
+        DATA_TIDY.get_or_init(|| tidy.to_string());
+        //data_tidy=tidy;
+    }
+    if let Some(location) = toml_info["db"]["location"].as_str() {
+        DB_LOCATION.get_or_init(|| location.to_string());
+    }
+    Ok(())
+}
