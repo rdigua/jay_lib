@@ -4,8 +4,9 @@
 //!
 //!
 
-///Command string function.
+///Command functions.
 pub mod fns;
+///A method of config
 pub mod config;
 
 

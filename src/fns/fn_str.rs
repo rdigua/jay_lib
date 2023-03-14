@@ -31,8 +31,8 @@ pub fn v_string(v: Vec<u8>) -> String {
 /// Example:
 ///```rust
 /// use jay_lib::fns::fn_str::first_word;
-///if Some(subject)=first_word("abc def"){
-///	  assert_eq!("abc".to_string,subject)
+///if let Some(subject)=first_word("abc def"){
+///	  assert_eq!("abc".to_string(),subject)
 ///}
 ///assert_eq!(None,first_word(""));
 ///```
@@ -47,8 +47,9 @@ pub fn first_word<S:AsRef<str>>(s: S) -> Option<String> {
 ///Just to remember it.
 /// Example:
 ///``` rust
-///if Some(subject)=last_word("abc def"){
-///	  assert_eq!("abc".to_string,subject)
+/// use jay_lib::fns::fn_str::last_word;
+///if let Some(subject)=last_word("abc def"){
+///	  assert_eq!("def".to_string(),subject)
 ///}
 ///assert_eq!(None,last_word(""));
 ///```
