@@ -142,3 +142,10 @@ pub fn del_mid_str<S>(start:S,end:S,s:S)->Result<String>
     let slice = front.to_owned()+back;
     Ok(slice)
 }
+
+/*
+number: String=s.chars().filter(|c|c.is_digit(10)).collect();
+zh: String = ss.chars().into_iter().filter(|x| x > &'\u{4E00}' && x < &'\u{9FFF}').collect();
+
+
+ */

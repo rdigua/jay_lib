@@ -6,6 +6,7 @@
 
 ///Command string function.
 pub mod fns;
+pub mod config;
 
 
 
