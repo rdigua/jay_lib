@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["del_mid_str","get_mid_str"]};
+window.SIDEBAR_ITEMS = {"fn":["capitalize_first","del_mid_str","first_word","get_mid_str","last_word","u8_chars","v_string"]};

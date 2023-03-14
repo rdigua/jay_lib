@@ -3,7 +3,62 @@
 use std::error::Error;
 type Result<T>=::std::result::Result<T, Box<dyn Error>>;
 
+///First char of first word to Capitalize
+///A mnemonic node
+pub fn capitalize_first(input: &str) -> String {
+    let mut c = input.chars();
+    match c.next() {
+        None => String::new(),
+        Some(first) => first.to_uppercase().to_string() + c.as_str(),
+    }
+}
 
+///`Vec<u8>` to `Vec<char>`
+///A mnemonic node
+pub fn u8_chars(v: Vec<u8>) -> Vec<char> {
+    let r: Vec<char> = v.into_iter().map(char::from).collect();
+    r
+}
+
+///`Vec<u8>` to String
+///A mnemonic node
+pub fn v_string(v: Vec<u8>) -> String {
+    v.into_iter().map(char::from).collect()
+}
+
+///It is get first word form str.
+///Just a mnemonic node to remember it.
+/// Example:
+///```rust
+/// use jay_lib::fns::fn_str::first_word;
+///if Some(subject)=first_word("abc def"){
+///	  assert_eq!("abc".to_string,subject)
+///}
+///assert_eq!(None,first_word(""));
+///```
+pub fn first_word<S:AsRef<str>>(s: S) -> Option<String> {
+    let s = s.as_ref().to_string();
+    if let Some(sub)=s.split_whitespace().next(){
+        Some(sub.to_string())
+    }else { None }
+}
+
+///It is get last word form str.
+///Just to remember it.
+/// Example:
+///``` rust
+///if Some(subject)=last_word("abc def"){
+///	  assert_eq!("abc".to_string,subject)
+///}
+///assert_eq!(None,last_word(""));
+///```
+///
+pub fn last_word<S:AsRef<str>>(s: S) -> Option<String> {
+    let s = s.as_ref().to_string();
+    if let Some(sub)=s.split_whitespace().last(){
+        Some(sub.to_string())
+    }else { None }
+}
 
 ///Command get middle subject str.
 /// Example:
