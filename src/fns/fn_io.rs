@@ -12,7 +12,7 @@ type Result<String> = ::std::result::Result<String, Box<dyn Error>>;
 /// # use std::error::Error;
 /// # use once_cell::sync::OnceCell;
 /// # use toml::Value;
-/// #
+/// # use jay_lib::fns::fn_io::f_string;
 /// # type Result<> = ::std::result::Result<(), Box<dyn Error>>;
 /// # pub static DB_LOCATION: OnceCell<String> = OnceCell::new();
 /// # pub static DICTIONARY_FROM: OnceCell<String> = OnceCell::new();
@@ -20,7 +20,7 @@ type Result<String> = ::std::result::Result<String, Box<dyn Error>>;
 /// #
 /// # pub fn set_conf() -> Result<> {
 ///     let mut s = String::from("");
-///     match io_fn::f_string("./config.toml") {
+///     match f_string("./config.toml") {
 ///         Ok(st) => s = st,
 ///         Err(e) => eprintln!("{e}"),
 ///     }
@@ -51,6 +51,7 @@ pub fn f_string<P: AsRef<str>>(s: P) -> Result<String> {
 /// let p=get_file_date_name();
 /// let s="12345";
 /// fs::write(p, s)?;
+/// # Ok(())
 /// # }
 /// ```
 pub fn get_file_date_name() -> String {
@@ -71,6 +72,7 @@ pub fn get_file_date_name() -> String {
 /// let p=get_file_time_name();
 /// let s="12345";
 /// fs::write(p, s)?;
+/// # Ok(())
 /// # }
 ///
 pub fn get_file_time_name() -> String {
@@ -88,7 +90,8 @@ pub fn get_file_time_name() -> String {
 /// It to check temporary data.
 ///```no_run
 /// use jay_lib::fns::fn_io::v_f;
-///   if let Err(_) = v_f(v.clone()) {
+///    let v=["1".to_string(),"2".to_string(),"3".to_string()];
+///   if let Err(_) = v_f(v.to_vec()) {
 ///         eprintln!("Save v to file has some err");
 ///   }
 /// ```
@@ -108,7 +111,8 @@ pub fn v_f(v: Vec<String>) -> std::io::Result<()> {
 ///
 ///    use jay_lib::fns::fn_io::s_f;
 ///      //s is a sql string.
-///    if let Err(_) = s_f(s.clone()) {
+///    let s="Inst into xxxx".to_string();
+///    if let Err(_) = s_f(s) {
 ///         eprintln!("Save v to file has some err");
 ///     }
 /// ```

@@ -5,6 +5,15 @@ type Result<T>=::std::result::Result<T, Box<dyn Error>>;
 
 ///First char of first word to Capitalize
 ///A mnemonic node
+///
+/// Example:
+///```rust
+/// use jay_lib::fns::fn_str::capitalize_first;
+/// let s="hello word";
+///
+/// assert_eq!("Hello word",capitalize_first(s));
+///
+/// ```
 pub fn capitalize_first(input: &str) -> String {
     let mut c = input.chars();
     match c.next() {
@@ -15,6 +24,20 @@ pub fn capitalize_first(input: &str) -> String {
 
 ///`Vec<u8>` to `Vec<char>`
 ///A mnemonic node
+///
+/// Example:
+///```rust
+///   //SQLite format 3
+///    use jay_lib::fns::fn_str::u8_chars;
+///    let codepoint_array: Vec<u8> = "\n\0\rtest\00x08".into();
+///    let codepoint_array = vec![23, 33, 43, 53, 63, 74, 84, 192, 241];
+///     let codepoints: Vec<char> = codepoint_array.into_iter().map(char::from).collect();
+///     let codepoint_array = b"SQLite format 3"; // + b'\0';
+///     let mut vc = codepoint_array.to_vec();
+///     vc.push(b'\0');
+///     let codepoints =u8_chars(vc);
+///     println!("{:?},{}", codepoints, codepoints.len());
+/// ```
 pub fn u8_chars(v: Vec<u8>) -> Vec<char> {
     let r: Vec<char> = v.into_iter().map(char::from).collect();
     r
@@ -22,7 +45,14 @@ pub fn u8_chars(v: Vec<u8>) -> Vec<char> {
 
 ///`Vec<u8>` to String
 ///A mnemonic node
-pub fn v_string(v: Vec<u8>) -> String {
+///```rust
+/// use jay_lib::fns::fn_str::v8_string;
+/// let mut buffer: [u8; 16] = [0; 16];
+///     let v = buffer.to_vec();
+///     let s = v8_string(v);
+///     println!("{}", s.len());
+/// ```
+pub fn v8_string(v: Vec<u8>) -> String {
     v.into_iter().map(char::from).collect()
 }
 
