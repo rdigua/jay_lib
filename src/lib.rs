@@ -3,8 +3,11 @@
 #![feature(rustdoc_missing_doc_code_examples)]
 #![warn(rustdoc::missing_doc_code_examples)]
 //!The lib for me to help remember in use of function and style about Rust.
-//!
-//!
+//!Add this to your Cargo.toml:
+//! ```toml
+//! [dependencies]
+//! jay_lib = "0.0.9"
+//!```
 
 ///Command functions.
 pub mod fns;

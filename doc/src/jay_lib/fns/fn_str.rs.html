@@ -162,6 +162,58 @@
 <a href="#162" id="162">162</a>
 <a href="#163" id="163">163</a>
 <a href="#164" id="164">164</a>
+<a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
+<a href="#172" id="172">172</a>
+<a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a>
+<a href="#175" id="175">175</a>
+<a href="#176" id="176">176</a>
+<a href="#177" id="177">177</a>
+<a href="#178" id="178">178</a>
+<a href="#179" id="179">179</a>
+<a href="#180" id="180">180</a>
+<a href="#181" id="181">181</a>
+<a href="#182" id="182">182</a>
+<a href="#183" id="183">183</a>
+<a href="#184" id="184">184</a>
+<a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
+<a href="#213" id="213">213</a>
+<a href="#214" id="214">214</a>
+<a href="#215" id="215">215</a>
+<a href="#216" id="216">216</a>
 </pre><pre class="rust"><code><span class="doccomment">///Command string function.
 
 </span><span class="kw">use </span>std::error::Error;
@@ -169,6 +221,15 @@
 
 <span class="doccomment">///First char of first word to Capitalize
 ///A mnemonic node
+///
+/// Example:
+///```rust
+/// use jay_lib::fns::fn_str::capitalize_first;
+/// let s=&quot;hello word&quot;;
+///
+/// assert_eq!(&quot;Hello word&quot;,capitalize_first(s));
+///
+/// ```
 </span><span class="kw">pub fn </span>capitalize_first(input: <span class="kw-2">&amp;</span>str) -&gt; String {
     <span class="kw">let </span><span class="kw-2">mut </span>c = input.chars();
     <span class="kw">match </span>c.next() {
@@ -179,6 +240,20 @@
 
 <span class="doccomment">///`Vec&lt;u8&gt;` to `Vec&lt;char&gt;`
 ///A mnemonic node
+///
+/// Example:
+///```rust
+///   //SQLite format 3
+///    use jay_lib::fns::fn_str::u8_chars;
+///    let codepoint_array: Vec&lt;u8&gt; = &quot;\n\0\rtest\00x08&quot;.into();
+///    let codepoint_array = vec![23, 33, 43, 53, 63, 74, 84, 192, 241];
+///     let codepoints: Vec&lt;char&gt; = codepoint_array.into_iter().map(char::from).collect();
+///     let codepoint_array = b&quot;SQLite format 3&quot;; // + b&#39;\0&#39;;
+///     let mut vc = codepoint_array.to_vec();
+///     vc.push(b&#39;\0&#39;);
+///     let codepoints =u8_chars(vc);
+///     println!(&quot;{:?},{}&quot;, codepoints, codepoints.len());
+/// ```
 </span><span class="kw">pub fn </span>u8_chars(v: Vec&lt;u8&gt;) -&gt; Vec&lt;char&gt; {
     <span class="kw">let </span>r: Vec&lt;char&gt; = v.into_iter().map(char::from).collect();
     r
@@ -186,7 +261,14 @@
 
 <span class="doccomment">///`Vec&lt;u8&gt;` to String
 ///A mnemonic node
-</span><span class="kw">pub fn </span>v_string(v: Vec&lt;u8&gt;) -&gt; String {
+///```rust
+/// use jay_lib::fns::fn_str::v8_string;
+/// let mut buffer: [u8; 16] = [0; 16];
+///     let v = buffer.to_vec();
+///     let s = v8_string(v);
+///     println!(&quot;{}&quot;, s.len());
+/// ```
+</span><span class="kw">pub fn </span>v8_string(v: Vec&lt;u8&gt;) -&gt; String {
     v.into_iter().map(char::from).collect()
 }
 
@@ -310,17 +392,39 @@
 <span class="doccomment">///Check the string is or not English
 /// But, if it is a phrase.
 /// What to do?
+/// ```rust
+///     use jay_lib::fns::fn_str;
+///     assert_eq!(false,fn_str::check_word(&quot;&quot;));
+///     assert_eq!(false,fn_str::check_word(&quot;123 eng&quot;));
+///     assert_eq!(false,fn_str::check_word(&quot;what is it&quot;));
+///     assert_eq!(true,fn_str::check_word(&quot;hello&quot;));
+///     assert_eq!(true,fn_str::check_word(&quot;It&#39;s&quot;));
+///```
 </span><span class="kw">pub fn </span>check_word&lt;S: ToString&gt;(s: S) -&gt; bool{
     <span class="kw">if </span>s.to_string().is_empty() { <span class="kw">return </span><span class="bool-val">false</span>; };
     <span class="kw">let </span>s: String = s.to_string().chars().filter(|c| !c.is_alphabetic()&amp;&amp;<span class="kw-2">*</span><span class="macro">c!</span>=<span class="string">&#39;\&#39;&#39;</span>).collect();
     s.is_empty()
 }
 <span class="doccomment">///Check the string has Chinese.
+///```rust
+///     use jay_lib::fns::fn_str;
+///     assert_eq!(false,fn_str::check_zh(&quot;&quot;.to_string()));
+///     assert_eq!(true,fn_str::check_zh(&quot;中&quot;.to_string()));
+///     assert_eq!(true,fn_str::check_zh(&quot;go 中&quot;.to_string()));
+///     assert_eq!(true,fn_str::check_zh(&quot;裏&quot;.to_string()));
+///```
 </span><span class="kw">pub fn </span>check_zh(s: String) -&gt; bool {
     <span class="kw">let </span>zh: String = s.chars().into_iter().filter(|x| x &gt; <span class="kw-2">&amp;</span><span class="string">&#39;\u{4E00}&#39; </span>&amp;&amp; x &lt; <span class="kw-2">&amp;</span><span class="string">&#39;\u{9FFF}&#39;</span>).collect();
     !zh.is_empty()
 }
 <span class="doccomment">///0.1.2.3.4.5.6.7.8.9
+///```rust
+///     use jay_lib::fns::fn_str;
+///     assert_eq!(false,fn_str::is_number(&quot;&quot;.to_string()));
+///     assert_eq!(true,fn_str::is_number(&quot;1&quot;.to_string()));
+///     assert_eq!(false,fn_str::is_number(&quot;1 1&quot;.to_string()));
+///     assert_eq!(true,fn_str::is_number(&quot;789&quot;.to_string()));
+/// ```
 </span><span class="kw">pub fn </span>is_number(s: String) -&gt; bool {
     <span class="kw">if </span>s.is_empty() { <span class="kw">return </span><span class="bool-val">false</span>; };
     <span class="kw">let </span>number:String=s.chars().filter(|c|c.is_digit(<span class="number">10</span>)).collect();
