@@ -146,17 +146,39 @@ pub fn del_mid_str<S>(start:S,end:S,s:S)->Result<String>
 ///Check the string is or not English
 /// But, if it is a phrase.
 /// What to do?
+/// ```rust
+///     use jay_lib::fns::fn_str;
+///     assert_eq!(false,fn_str::check_word(""));
+///     assert_eq!(false,fn_str::check_word("123 eng"));
+///     assert_eq!(false,fn_str::check_word("what is it"));
+///     assert_eq!(true,fn_str::check_word("hello"));
+///     assert_eq!(true,fn_str::check_word("It's"));
+///```
 pub fn check_word<S: ToString>(s: S) -> bool{
     if s.to_string().is_empty() { return false; };
     let s: String = s.to_string().chars().filter(|c| !c.is_alphabetic()&&*c!='\'').collect();
     s.is_empty()
 }
 ///Check the string has Chinese.
+///```rust
+///     use jay_lib::fns::fn_str;
+///     assert_eq!(false,fn_str::check_zh("".to_string()));
+///     assert_eq!(true,fn_str::check_zh("中".to_string()));
+///     assert_eq!(true,fn_str::check_zh("go 中".to_string()));
+///     assert_eq!(true,fn_str::check_zh("裏".to_string()));
+///```
 pub fn check_zh(s: String) -> bool {
     let zh: String = s.chars().into_iter().filter(|x| x > &'\u{4E00}' && x < &'\u{9FFF}').collect();
     !zh.is_empty()
 }
 ///0.1.2.3.4.5.6.7.8.9
+///```rust
+///     use jay_lib::fns::fn_str;
+///     assert_eq!(false,fn_str::is_number("".to_string()));
+///     assert_eq!(true,fn_str::is_number("1".to_string()));
+///     assert_eq!(false,fn_str::is_number("1 1".to_string()));
+///     assert_eq!(true,fn_str::is_number("789".to_string()));
+/// ```
 pub fn is_number(s: String) -> bool {
     if s.is_empty() { return false; };
     let number:String=s.chars().filter(|c|c.is_digit(10)).collect();
