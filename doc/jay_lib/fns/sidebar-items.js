@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["fn_str"]};
+window.SIDEBAR_ITEMS = {"mod":["fn_io","fn_str"]};

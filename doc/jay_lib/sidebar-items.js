@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["fns"]};
+window.SIDEBAR_ITEMS = {"mod":["config","fns"]};

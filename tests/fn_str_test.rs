@@ -26,3 +26,31 @@ fn get_mid_test(){
         assert_eq!(r#"CS 97SI: Introduction to Programming Contests"#.to_string(),get);
     }
 }
+
+#[test]
+fn english(){
+    assert_eq!(false,fn_str::check_word(""));
+    assert_eq!(false,fn_str::check_word("123 eng"));
+    assert_eq!(false,fn_str::check_word("what is it"));
+    assert_eq!(true,fn_str::check_word("hello"));
+    assert_eq!(true,fn_str::check_word("It's"));
+}
+
+
+#[test]
+fn zh(){
+    assert_eq!(false,fn_str::check_zh("".to_string()));
+    assert_eq!(true,fn_str::check_zh("中".to_string()));
+    assert_eq!(true,fn_str::check_zh("go 中".to_string()));
+    assert_eq!(true,fn_str::check_zh("裏".to_string()));
+}
+
+#[test]
+fn digit(){
+    assert_eq!(false,fn_str::is_number("".to_string()));
+    assert_eq!(true,fn_str::is_number("1".to_string()));
+    assert_eq!(false,fn_str::is_number("1 1".to_string()));
+    assert_eq!(true,fn_str::is_number("789".to_string()));
+}
+
+
