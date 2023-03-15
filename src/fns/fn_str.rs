@@ -143,10 +143,22 @@ pub fn del_mid_str<S>(start:S,end:S,s:S)->Result<String>
     let slice = front.to_owned()+back;
     Ok(slice)
 }
-
-/*
-number: String=s.chars().filter(|c|c.is_digit(10)).collect();
-zh: String = ss.chars().into_iter().filter(|x| x > &'\u{4E00}' && x < &'\u{9FFF}').collect();
-
-
- */
+///Check the string is or not English
+/// But, if it is a phrase.
+/// What to do?
+pub fn check_word<S: ToString>(s: S) -> bool{
+    if s.to_string().is_empty() { return false; };
+    let s: String = s.to_string().chars().filter(|c| !c.is_alphabetic()&&*c!='\'').collect();
+    s.is_empty()
+}
+///Check the string has Chinese.
+pub fn check_zh(s: String) -> bool {
+    let zh: String = s.chars().into_iter().filter(|x| x > &'\u{4E00}' && x < &'\u{9FFF}').collect();
+    !zh.is_empty()
+}
+///0.1.2.3.4.5.6.7.8.9
+pub fn is_number(s: String) -> bool {
+    if s.is_empty() { return false; };
+    let number:String=s.chars().filter(|c|c.is_digit(10)).collect();
+    s.len()==number.len()
+}
