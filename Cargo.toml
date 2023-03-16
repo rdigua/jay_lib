@@ -22,5 +22,6 @@ exclude = [
 chrono = "0.4.24"
 once_cell = "1.17.1"
 toml = "0.7.3"
+rusqlite = { version = "0.28.0", features = ["bundled"] }
 
 
