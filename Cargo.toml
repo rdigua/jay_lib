@@ -15,6 +15,7 @@ exclude = [
     "chrono",
     "once_cell",
     ".*",
+    "forme.md"
 ]
 
 
