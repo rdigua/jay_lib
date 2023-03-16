@@ -9,7 +9,8 @@ use crate::fns::fn_io;
 use std::error::Error;
 use once_cell::sync::OnceCell;
 use toml::Value;
-type Result<>= ::std::result::Result<(), Box<dyn Error>>;
+
+type Result<> = ::std::result::Result<(), Box<dyn Error>>;
 
 /// Often, it can be a database url or file.
 pub static DB_LOCATION: OnceCell<String> = OnceCell::new();
@@ -23,7 +24,28 @@ pub static DATA_TIDY: OnceCell<String> = OnceCell::new();
 ///get fields which is used.
 ///written to only once
 ///used it for main or lib.
-pub fn set_conf() ->Result<> {
+///
+/// It is just a example for me.
+///Can you be look source code and changed it for yourself.
+///
+/// Example:
+///
+///```rust
+///    use jay_lib::config::{DB_LOCATION,DATA_FROM,DATA_TIDY};
+///    let db_location;
+///    let dic_from;
+///    let tidy_data;
+///    match aid::setup() {
+///        Ok(_) => {
+///            db_location = DB_LOCATION.get();
+///            dic_from = DATA_FROM.get();
+///            tidy_data = DATA_TIDY.get();
+///            println!("{:?},{:?},{:?}", db_location, dic_from, rust_from);
+///        }
+///        Err(e) => { eprintln!("{e:?}");return; }
+///    };
+/// ```
+pub fn set_conf() -> Result<> {
     let mut s = String::from("");
     if let Ok(st) = fn_io::f_string("./config.toml") {
         s = st;
