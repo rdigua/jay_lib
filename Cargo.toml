@@ -11,9 +11,6 @@ documentation = "https://docs.rs/jay_lib"
 keywords = ["toolkit","tools","utility"]
 edition = "2021"
 exclude = [
-    "toml",
-    "chrono",
-    "once_cell",
     ".*",
     "forme.md"
 ]
