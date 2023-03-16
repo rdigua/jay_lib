@@ -15,9 +15,10 @@ type Result<T>=::std::result::Result<T, Box<dyn Error>>;
 ///
 /// ```
 pub fn capitalize_first(input: &str) -> String {
-    let mut c = input.chars();
+    let s=input.trim();
+    let mut c = s.chars();
     match c.next() {
-        None => String::new(),
+        None => return String::new(),
         Some(first) => first.to_uppercase().to_string() + c.as_str(),
     }
 }
@@ -69,7 +70,8 @@ pub fn v8_string(v: Vec<u8>) -> String {
 pub fn first_word<S:AsRef<str>>(s: S) -> Option<String> {
     let s = s.as_ref().to_string();
     if let Some(sub)=s.split_whitespace().next(){
-        Some(sub.to_string())
+        let s=sub.chars().filter(|c|c.is_alphabetic()||*c=='\'').collect::<String>() ;
+        Some(s)
     }else { None }
 }
 
