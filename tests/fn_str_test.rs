@@ -53,4 +53,18 @@ fn digit(){
     assert_eq!(true,fn_str::is_number("789".to_string()));
 }
 
+#[test]
+fn capitalize_first_test(){
+    let s=fn_str::capitalize_first("hello world");
+    assert_eq!("Hello world",s);
+}
 
+#[test]
+fn first_word_test(){
+    let s=fn_str::first_word("hello, world");
+    assert_eq!(Some("hello".to_string()),s);
+    assert_eq!(None,fn_str::first_word(""));
+    assert_eq!(Some("hello".to_string()),fn_str::first_word("hello world"));
+    assert_eq!(Some("hello".to_string()),fn_str::first_word("hello789 world"));
+    assert_eq!(Some("It's".to_string()),fn_str::first_word("It's ok!"));
+}
