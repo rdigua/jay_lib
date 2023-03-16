@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":["set_conf"],"static":["DATA_FROM","DATA_TIDY","DB_LOCATION"]};
