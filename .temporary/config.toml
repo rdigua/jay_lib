@@ -1,0 +1,7 @@
+Title = "Config Example"
+[data]
+from = "./data/from.txt"
+tidy = "./data/tidy.txt"
+
+[db]
+location = "./data/e_rust.db"

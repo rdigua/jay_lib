@@ -6,11 +6,11 @@
 //!
 
 use crate::fns::fn_io;
-use std::error::Error;
 use once_cell::sync::OnceCell;
+use std::error::Error;
 use toml::Value;
 
-type Result<> = ::std::result::Result<(), Box<dyn Error>>;
+type Result = ::std::result::Result<(), Box<dyn Error>>;
 
 /// Often, it can be a database url or file.
 pub static DB_LOCATION: OnceCell<String> = OnceCell::new();
@@ -18,7 +18,6 @@ pub static DB_LOCATION: OnceCell<String> = OnceCell::new();
 pub static DATA_FROM: OnceCell<String> = OnceCell::new();
 /// Ordering temporary place.
 pub static DATA_TIDY: OnceCell<String> = OnceCell::new();
-
 
 ///Open file
 ///get fields which is used.
@@ -31,23 +30,24 @@ pub static DATA_TIDY: OnceCell<String> = OnceCell::new();
 /// Example:
 ///
 ///```rust
-///    use jay_lib::config::{DB_LOCATION,DATA_FROM,DATA_TIDY};
+///    use jay_lib::config::{set_conf,DB_LOCATION,DATA_FROM,DATA_TIDY};
 ///    let db_location;
 ///    let dic_from;
 ///    let tidy_data;
-///    match aid::setup() {
+///    match set_conf() {
 ///        Ok(_) => {
 ///            db_location = DB_LOCATION.get();
 ///            dic_from = DATA_FROM.get();
 ///            tidy_data = DATA_TIDY.get();
-///            println!("{:?},{:?},{:?}", db_location, dic_from, rust_from);
+///            println!("{:?},{:?},{:?}", db_location, dic_from, tidy_data);
 ///        }
 ///        Err(e) => { eprintln!("{e:?}");return; }
 ///    };
 /// ```
-pub fn set_conf() -> Result<> {
+/// ***It will be changed.***
+pub fn set_conf() -> Result {
     let mut s = String::from("");
-    if let Ok(st) = fn_io::f_string("./config.toml") {
+    if let Ok(st) = fn_io::f_string("./.temporary/config.toml") {
         s = st;
     }
     let toml_info: Value = toml::from_str(&s)?;
