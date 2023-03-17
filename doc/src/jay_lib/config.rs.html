@@ -71,11 +71,11 @@
 //!
 
 </span><span class="kw">use </span><span class="kw">crate</span>::fns::fn_io;
-<span class="kw">use </span>std::error::Error;
 <span class="kw">use </span>once_cell::sync::OnceCell;
+<span class="kw">use </span>std::error::Error;
 <span class="kw">use </span>toml::Value;
 
-<span class="kw">type </span><span class="prelude-ty">Result</span>&lt;&gt; = ::std::result::Result&lt;(), Box&lt;<span class="kw">dyn </span>Error&gt;&gt;;
+<span class="kw">type </span><span class="prelude-ty">Result </span>= ::std::result::Result&lt;(), Box&lt;<span class="kw">dyn </span>Error&gt;&gt;;
 
 <span class="doccomment">/// Often, it can be a database url or file.
 </span><span class="kw">pub static </span>DB_LOCATION: OnceCell&lt;String&gt; = OnceCell::new();
@@ -83,7 +83,6 @@
 </span><span class="kw">pub static </span>DATA_FROM: OnceCell&lt;String&gt; = OnceCell::new();
 <span class="doccomment">/// Ordering temporary place.
 </span><span class="kw">pub static </span>DATA_TIDY: OnceCell&lt;String&gt; = OnceCell::new();
-
 
 <span class="doccomment">///Open file
 ///get fields which is used.
@@ -96,23 +95,24 @@
 /// Example:
 ///
 ///```rust
-///    use jay_lib::config::{DB_LOCATION,DATA_FROM,DATA_TIDY};
+///    use jay_lib::config::{set_conf,DB_LOCATION,DATA_FROM,DATA_TIDY};
 ///    let db_location;
 ///    let dic_from;
 ///    let tidy_data;
-///    match aid::setup() {
+///    match set_conf() {
 ///        Ok(_) =&gt; {
 ///            db_location = DB_LOCATION.get();
 ///            dic_from = DATA_FROM.get();
 ///            tidy_data = DATA_TIDY.get();
-///            println!(&quot;{:?},{:?},{:?}&quot;, db_location, dic_from, rust_from);
+///            println!(&quot;{:?},{:?},{:?}&quot;, db_location, dic_from, tidy_data);
 ///        }
 ///        Err(e) =&gt; { eprintln!(&quot;{e:?}&quot;);return; }
 ///    };
 /// ```
-</span><span class="kw">pub fn </span>set_conf() -&gt; <span class="prelude-ty">Result</span>&lt;&gt; {
+/// ***It will be changed.***
+</span><span class="kw">pub fn </span>set_conf() -&gt; <span class="prelude-ty">Result </span>{
     <span class="kw">let </span><span class="kw-2">mut </span>s = String::from(<span class="string">&quot;&quot;</span>);
-    <span class="kw">if let </span><span class="prelude-val">Ok</span>(st) = fn_io::f_string(<span class="string">&quot;./config.toml&quot;</span>) {
+    <span class="kw">if let </span><span class="prelude-val">Ok</span>(st) = fn_io::f_string(<span class="string">&quot;./.temporary/config.toml&quot;</span>) {
         s = st;
     }
     <span class="kw">let </span>toml_info: Value = toml::from_str(<span class="kw-2">&amp;</span>s)<span class="question-mark">?</span>;
@@ -127,5 +127,6 @@
         DB_LOCATION.get_or_init(|| location.to_string());
     }
     <span class="prelude-val">Ok</span>(())
-}</code></pre></div>
+}
+</code></pre></div>
 </section></main></body></html>

@@ -6,17 +6,18 @@ used it for main or lib.</p>
 Can you be look source code and changed it for yourself.</p>
 <p>Example:</p>
 
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code>    <span class="kw">use </span>jay_lib::config::{DB_LOCATION,DATA_FROM,DATA_TIDY};
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>    <span class="kw">use </span>jay_lib::config::{set_conf,DB_LOCATION,DATA_FROM,DATA_TIDY};
     <span class="kw">let </span>db_location;
     <span class="kw">let </span>dic_from;
     <span class="kw">let </span>tidy_data;
-    <span class="kw">match </span>aid::setup() {
+    <span class="kw">match </span>set_conf() {
         <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; {
             db_location = DB_LOCATION.get();
             dic_from = DATA_FROM.get();
             tidy_data = DATA_TIDY.get();
-            <span class="macro">println!</span>(<span class="string">&quot;{:?},{:?},{:?}&quot;</span>, db_location, dic_from, rust_from);
+            <span class="macro">println!</span>(<span class="string">&quot;{:?},{:?},{:?}&quot;</span>, db_location, dic_from, tidy_data);
         }
         <span class="prelude-val">Err</span>(e) =&gt; { <span class="macro">eprintln!</span>(<span class="string">&quot;{e:?}&quot;</span>);<span class="kw">return</span>; }
     };</code></pre></div>
+<p><em><strong>It will be changed.</strong></em></p>
 </div></details></section></div></main></body></html>
