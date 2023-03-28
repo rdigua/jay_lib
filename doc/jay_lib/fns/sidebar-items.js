@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["fn_db","fn_io","fn_str"]};
