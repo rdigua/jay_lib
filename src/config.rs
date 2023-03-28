@@ -45,6 +45,8 @@ pub static DATA_TIDY: OnceCell<String> = OnceCell::new();
 ///    };
 /// ```
 /// ***It will be changed.***
+/// If no exist config file ... ***To Do***
+///
 pub fn set_conf() -> Result {
     let mut s = String::from("");
     if let Ok(st) = fn_io::f_string("./.temporary/config.toml") {

@@ -1,6 +1,7 @@
 ///Command string function.
 
 use std::error::Error;
+
 type Result<T>=::std::result::Result<T, Box<dyn Error>>;
 
 ///First char of first word to Capitalize
@@ -215,4 +216,16 @@ pub fn is_number(s: String) -> bool {
     if s.is_empty() { return false; };
     let number:String=s.chars().filter(|c|c.is_digit(10)).collect();
     s.len()==number.len()
+}
+
+///convert a number into a binary number string like "0010000001011001.."
+///```rust
+///use jay_lib::fns::fn_str;
+///assert_eq!("100",fn_str::u_str(4));
+///assert_eq!("11",fn_str::u_str(3));
+///assert_eq!("111",fn_str::u_str(7));
+///```
+pub fn u_str<U:std::fmt::Binary>(u:U)->String{
+    let r: String = format!("{u:b}");
+    r
 }
