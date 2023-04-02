@@ -1,6 +1,7 @@
 ///Command string function.
 
 use std::error::Error;
+use std::borrow::Cow;
 
 type Result<T>=::std::result::Result<T, Box<dyn Error>>;
 
@@ -21,6 +22,39 @@ pub fn capitalize_first(input: &str) -> String {
     match c.next() {
         None => return String::new(),
         Some(first) => first.to_uppercase().to_string() + c.as_str(),
+    }
+}
+
+
+///First char of first word to Capitalize
+///But return is Cow<str>
+///A mnemonic node
+///
+/// Example:
+///```rust
+/// use jay_lib::fns::fn_str::capitalize;
+/// let s="hello word";
+///
+/// assert_eq!("Hello word",capitalize(s));
+///
+/// ```
+pub fn capitalize(name: &str) -> Cow<str> {
+    match name.chars().nth(0) {
+        Some(first_char) if first_char.is_uppercase() => {
+            // No allocation is necessary, as the string
+            // already starts with an uppercase char
+            Cow::Borrowed(name)
+        }
+        Some(first_char) => {
+            // An allocation is necessary, as the old string
+            // does not start with an uppercase char
+            let new_string: String = first_char.to_uppercase()
+              .chain(name.chars().skip(1))
+              .collect();
+
+            Cow::Owned(new_string)
+        },
+        None => Cow::Borrowed(name),
     }
 }
 

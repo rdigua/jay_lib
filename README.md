@@ -6,7 +6,7 @@ I lie on my back in the world, without a house, without a tent, with free, witho
 ## Usage
 Add this to your Cargo.toml:
 [dependencies]
-jay_lib = "0.0.11"
+jay_lib = "0.0.14"
 
 ## fns
 It is some functions.
