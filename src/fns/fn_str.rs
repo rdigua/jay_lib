@@ -26,8 +26,9 @@ pub fn capitalize_first(input: &str) -> String {
 }
 
 
-///First char of first word to Capitalize
+///First char of first word to Capitalize /
 ///But return is Cow<str>
+///
 ///A mnemonic node
 ///
 /// Example:

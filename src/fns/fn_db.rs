@@ -19,7 +19,7 @@ pub fn sql_execute<S: AsRef<str>>(db: Connection, sql: S) -> rusqlite::Result<()
     Ok(())
 }
 
-///It batch excute a sql.
+///It batch execute a sql.
 ///
 ///
 pub fn sql_execute_batch<S: AsRef<str>>(db: Connection, sql: S) -> rusqlite::Result<()> {
