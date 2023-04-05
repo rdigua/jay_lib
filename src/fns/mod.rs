@@ -4,3 +4,5 @@ pub mod fn_str;
 pub mod fn_io;
 ///Command Sqlite3 functions
 pub mod fn_db;
+///Command network functions
+pub mod fn_net;
