@@ -27,7 +27,7 @@ pub fn capitalize_first(input: &str) -> String {
 
 
 ///First char of first word to Capitalize /
-///But return is Cow<str>
+///But return is `Cow<str>`
 ///
 ///A mnemonic node
 ///
@@ -214,6 +214,8 @@ pub fn del_mid_str<S>(start:S,end:S,s:S)->Result<String>
 ///Check the string is or not English
 /// But, if it is a phrase.
 /// What to do?
+///Example:
+///
 /// ```rust
 ///     use jay_lib::fns::fn_str;
 ///     assert_eq!(false,fn_str::check_word(""));
@@ -228,6 +230,8 @@ pub fn check_word<S: ToString>(s: S) -> bool{
     s.is_empty()
 }
 ///Check the string has Chinese.
+///Example:
+///
 ///```rust
 ///     use jay_lib::fns::fn_str;
 ///     assert_eq!(false,fn_str::check_zh("".to_string()));
@@ -240,6 +244,8 @@ pub fn check_zh(s: String) -> bool {
     !zh.is_empty()
 }
 ///0.1.2.3.4.5.6.7.8.9
+/// Example
+///
 ///```rust
 ///     use jay_lib::fns::fn_str;
 ///     assert_eq!(false,fn_str::is_number("".to_string()));
@@ -254,6 +260,8 @@ pub fn is_number(s: String) -> bool {
 }
 
 ///convert a number into a binary number string like "0010000001011001.."
+///Example:
+///
 ///```rust
 ///use jay_lib::fns::fn_str;
 ///assert_eq!("100",fn_str::u_str(4));
@@ -265,7 +273,9 @@ pub fn u_str<U:std::fmt::Binary>(u:U)->String{
     r
 }
 
-///examples:
+///Got middle substrings from string to `Vec<String>`
+/// Example:
+///
 ///```rust
 /// use jay_lib::fns::fn_str::g_str_v;
 ///     let mut v1: Vec<String> = Vec::new();

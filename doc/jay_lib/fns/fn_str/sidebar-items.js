@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["capitalize","capitalize_first","check_word","check_zh","del_mid_str","first_word","g_str_v","get_mid_str","is_number","last_word","u8_chars","u_str","v8_string"]};

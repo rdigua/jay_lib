@@ -2,12 +2,14 @@ use std::net::UdpSocket;
 
 ///Get Local Ip Address.
 /// 千万不要去用哪个local-ip, 或者machine ip之类的, 一个是通过ifconfig的返回获取IP地址的, 一个是扫描网卡, 在windows下都会panic
+/// examples:
+/// ```rust
 /// use jay_lib::fns::fn_net::get;
 ///
 /// fn main() {
 ///     println!("{}", get().unwrap());
 /// }
-///
+///```
 pub fn get_ip() -> Option<String> {
     let socket = match UdpSocket::bind("0.0.0.0:0") {
         Ok(s) => s,

@@ -6,7 +6,7 @@
 //!Add this to your Cargo.toml:
 //! ```toml
 //! [dependencies]
-//! jay_lib = "0.0.9"
+//! jay_lib = "0.0.16"
 //!```
 
 ///Command functions.
