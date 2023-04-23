@@ -264,3 +264,43 @@ pub fn u_str<U:std::fmt::Binary>(u:U)->String{
     let r: String = format!("{u:b}");
     r
 }
+
+///examples:
+///```rust
+/// use jay_lib::fns::fn_str::g_str_v;
+///     let mut v1: Vec<String> = Vec::new();
+///     if let Some(v) = middle::g_str_v("Hello,world.Hello,world", "H", "ld") {
+///         v1 = v
+///     }
+///     for i in v1 {
+///         assert_eq!("ello,wor", i);
+///     }
+///     let mut v=Vec::new();
+///     v.push("ello,wor".to_string());
+///     v.push("ello,wor".to_string());
+///     assert_eq!(Some(v), middle::g_str_v("Hello,world.Hello,world", "H", "ld"));
+/// ```
+///
+pub fn g_str_v<S: AsRef<str>>(s: S, start: S, end: S) -> Option<Vec<String>> {
+    if s.as_ref().len()==0||start.as_ref().len()==0||end.as_ref().len()==0{
+        return None
+    }
+    if s.as_ref().len()<=start.as_ref().len()+end.as_ref().len(){
+        return None
+    }
+    let mut s = s.as_ref();
+    let mut v: Vec<String> = Vec::new();
+    while let Some(first) = s.find(start.as_ref()) {
+        let mut now = first + start.as_ref().len();
+        s = &s[now..];
+        if let Some(last) = s.find(end.as_ref()) {
+            v.push(s[..last].to_string());
+            now = last + end.as_ref().len();
+            s = &s[now..];
+        }
+    }
+    if v.is_empty() {
+        return None;
+    }
+    Some(v)
+}
