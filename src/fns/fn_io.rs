@@ -6,7 +6,7 @@ use chrono::{Datelike, Timelike, Utc};
 type Result<String> = ::std::result::Result<String, Box<dyn Error>>;
 
 ///Read string from file.
-/// Example:
+///# Example :
 ///
 /// ```rust
 /// # use std::error::Error;
@@ -44,6 +44,8 @@ pub fn f_string<P: AsRef<str>>(s: P) -> Result<String> {
 
 ///get a file name from today.
 /// Often use for temporary file.
+///# Example :
+///
 ///```rust
 /// # use std::fs;
 /// # use jay_lib::fns::fn_io::get_file_date_name;
@@ -65,6 +67,8 @@ pub fn get_file_date_name() -> String {
 ///get a file name from now.
 /// it is year month day hour and minute.
 /// Often use for temporary file.
+///# Example :
+///
 ///```rust
 /// # use std::fs;
 /// # use jay_lib::fns::fn_io::get_file_time_name;
@@ -88,6 +92,8 @@ pub fn get_file_time_name() -> String {
 }
 ///writen `Vec<String>` to a temporary file.
 /// It to check temporary data.
+///# Example :
+///
 ///```no_run
 /// use jay_lib::fns::fn_io::v_f;
 ///    let v=["1".to_string(),"2".to_string(),"3".to_string()];
@@ -107,6 +113,8 @@ pub fn v_f(v: Vec<String>) -> std::io::Result<()> {
     Ok(())
 }
 ///Writen a String to a file.
+///# Example :
+///
 ///```no_run
 ///
 ///    use jay_lib::fns::fn_io::s_f;
